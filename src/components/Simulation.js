@@ -1,9 +1,9 @@
-// Simulation.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
+import Jexl from 'jexl';
 
-function Simulation({ feedback, setSimulationRun }) {
+function Simulation({ feedback, setSimulationRun, feedbackData, simulationVariables }) {
   // Calculate sentiment counts for the chart
   const sentimentCounts = feedback.reduce(
     (counts, fb) => {
@@ -32,9 +32,7 @@ function Simulation({ feedback, setSimulationRun }) {
   return (
     <div>
       <h1>Customer Feedback</h1>
-
-      {/* Sentiment Distribution Chart */}
-      <div>
+      <div style={{ width: '500px' }}>
         <h2>Sentiment Distribution</h2>
         <Pie data={data} />
       </div>
