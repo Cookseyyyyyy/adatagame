@@ -42,7 +42,7 @@ function Simulation({ feedback, setSimulationRun }) {
           options={{
             plugins: {
               legend: {
-                display: false,
+                display: true,
               },
             },
             elements: {
