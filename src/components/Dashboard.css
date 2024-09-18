@@ -97,10 +97,34 @@ body {
     transform: scale(1.05);
   }
   
+  /* Dashboard Info Section (Budget, Interactions, and Costs) */
+  .dashboard-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #007bff; /* Blue background like the button */
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .dashboard-info h3 {
+    margin: 0 20px;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+  
   /* Responsive Design */
   @media (max-width: 1024px) {
     .dashboard {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
+    }
+  
+    .dashboard-info {
+      flex-direction: column;
+      text-align: center;
     }
   }
   

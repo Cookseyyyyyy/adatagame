@@ -1,4 +1,3 @@
-// Dashboard.js
 import React from 'react';
 import Card from './Card';
 import './Dashboard.css';
@@ -8,32 +7,39 @@ const Dashboard = ({
   customInstructions, setCustomInstructions,
   aiModel, setAiModel,
   responseLength, setResponseLength,
+  budget, estimatedInteractions,
   runSimulation
 }) => {
 
   const availableDataSources = ['Knowledge Base', 'FAQ', 'User Manuals'];
   const availableInstructions = ['Friendly Tone', 'Concise Answers', 'Detailed Explanations'];
 
-  // Handlers for Data Sources and Custom Instructions
-  const handleDataSourceChange = (source) => {
-    if (dataSources.includes(source)) {
-      setDataSources(dataSources.filter(item => item !== source));
-    } else {
-      setDataSources([...dataSources, source]);
-    }
-  };
+  // Calculate estimated cost per interaction
+  let perInteractionCost = 0;
+  perInteractionCost += dataSources.length * 2; // Each data source adds $2 per interaction
+  perInteractionCost += customInstructions.length * 1.5; // Each instruction adds $1.5 per interaction
 
-  const handleInstructionChange = (instruction) => {
-    if (customInstructions.includes(instruction)) {
-      setCustomInstructions(customInstructions.filter(item => item !== instruction));
-    } else {
-      setCustomInstructions([...customInstructions, instruction]);
-    }
-  };
+  if (aiModel === 'basic') perInteractionCost += 1;
+  else if (aiModel === 'advanced') perInteractionCost += 3;
+  else if (aiModel === 'premium') perInteractionCost += 5;
+
+  perInteractionCost += responseLength / 50; // Every 50 words adds $1
+
+  // Estimated budget usage
+  const estimatedCost = perInteractionCost * estimatedInteractions;
 
   return (
     <div className="dashboard-container">
       <h1 className="dashboard-title">Customer Chatbot Control Dashboard</h1>
+
+      {/* Budget, Estimated Interactions, and Estimated Cost */}
+      <div className="dashboard-info">
+        <h3>Budget: ${budget}</h3>
+        <h3>Estimated Customer Interactions: {estimatedInteractions}</h3>
+        <h3>Estimated Cost per Interaction: ${perInteractionCost.toFixed(2)}</h3>
+        <h3>Estimated Total Cost: ${estimatedCost.toFixed(2)}</h3>
+      </div>
+
       <div className="dashboard">
         {/* Data Sources Card */}
         <Card title="Data Sources">
@@ -42,7 +48,13 @@ const Dashboard = ({
               <input
                 type="checkbox"
                 checked={dataSources.includes(source)}
-                onChange={() => handleDataSourceChange(source)}
+                onChange={() => {
+                  if (dataSources.includes(source)) {
+                    setDataSources(dataSources.filter(item => item !== source));
+                  } else {
+                    setDataSources([...dataSources, source]);
+                  }
+                }}
               />
               <label>{source}</label>
             </div>
@@ -56,7 +68,13 @@ const Dashboard = ({
               <input
                 type="checkbox"
                 checked={customInstructions.includes(instruction)}
-                onChange={() => handleInstructionChange(instruction)}
+                onChange={() => {
+                  if (customInstructions.includes(instruction)) {
+                    setCustomInstructions(customInstructions.filter(item => item !== instruction));
+                  } else {
+                    setCustomInstructions([...customInstructions, instruction]);
+                  }
+                }}
               />
               <label>{instruction}</label>
             </div>
