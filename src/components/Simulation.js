@@ -1,10 +1,20 @@
-// Simulation.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
 import './Simulation.css';
 
 function Simulation({ feedback, setSimulationRun }) {
+  const [animationDelays, setAnimationDelays] = useState([]);
+
+  useEffect(() => {
+    // Create an array of animation delays for feedback cards, speeding up the delay for each
+    const delays = feedback.map((_, index) => {
+      // Calculate an initial delay and make the delays shorter as we go
+      return index * 100; // Increase the delay by 100ms for each subsequent card
+    });
+    setAnimationDelays(delays);
+  }, [feedback]);
+
   // Calculate sentiment counts for the chart
   const sentimentCounts = feedback.reduce(
     (counts, fb) => {
@@ -61,6 +71,9 @@ function Simulation({ feedback, setSimulationRun }) {
           <div
             key={index}
             className={`feedback-card ${fb.sentiment.toLowerCase()}`}
+            style={{
+              animationDelay: `${animationDelays[index]}ms`, // Apply dynamic delay
+            }}
           >
             <h3 className="feedback-sentiment">{fb.sentiment}</h3>
             <p className="feedback-message">{fb.feedbackText}</p>
