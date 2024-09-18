@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+// Simulation.js
+import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
-import Jexl from 'jexl';
+import './Simulation.css';
 
-function Simulation({ feedback, setSimulationRun, feedbackData, simulationVariables }) {
+function Simulation({ feedback, setSimulationRun }) {
   // Calculate sentiment counts for the chart
   const sentimentCounts = feedback.reduce(
     (counts, fb) => {
@@ -24,47 +25,55 @@ function Simulation({ feedback, setSimulationRun, feedbackData, simulationVariab
           sentimentCounts.Neutral,
           sentimentCounts.Negative,
         ],
-        backgroundColor: ['#28a745', '#6c757d', '#dc3545'],
+        backgroundColor: ['#28a745', '#ffc107', '#dc3545'],
       },
     ],
   };
 
   return (
-    <div>
-      <h1>Customer Feedback</h1>
-      <div style={{ width: '500px' }}>
+    <div className="simulation-container">
+      <h1 className="feedback-title">Customer Feedback</h1>
+
+      {/* Pie Chart Centered */}
+      <div className="pie-chart-container">
         <h2>Sentiment Distribution</h2>
-        <Pie data={data} />
+        <Pie
+          data={data}
+          options={{
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            elements: {
+              arc: {
+                borderWidth: 0,
+                borderColor: 'grey',
+              },
+            },
+          }}
+        />
       </div>
 
-      {/* Feedback Table */}
-      <table>
-        <thead>
-          <tr>
-            <th>Sentiment</th>
-            <th>Feedback</th>
-          </tr>
-        </thead>
-        <tbody>
-          {feedback.map((fb, index) => (
-            <tr
-              key={index}
-              style={{
-                backgroundColor:
-                  fb.sentiment === 'Positive'
-                    ? '#d4edda'
-                    : fb.sentiment === 'Negative'
-                    ? '#f8d7da'
-                    : '#e2e3e5',
-              }}
-            >
-              <td>{fb.sentiment}</td>
-              <td>{fb.feedbackText}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <button onClick={() => setSimulationRun(false)}>Back to Dashboard</button>
+      {/* Feedback Cards in Grid */}
+      <div className="feedback-grid">
+        {feedback.map((fb, index) => (
+          <div
+            key={index}
+            className={`feedback-card ${fb.sentiment.toLowerCase()}`}
+          >
+            <h3 className="feedback-sentiment">{fb.sentiment}</h3>
+            <p className="feedback-message">{fb.feedbackText}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Back Button */}
+      <div className="back-button-container">
+        <button className="back-button" onClick={() => setSimulationRun(false)}>
+          Back to Dashboard
+        </button>
+      </div>
     </div>
   );
 }
