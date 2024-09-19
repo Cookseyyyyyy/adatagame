@@ -34,10 +34,17 @@ const Dashboard = ({
 
       {/* Budget, Estimated Interactions, and Estimated Cost */}
       <div className="dashboard-info">
-        <h3>Budget: ${budget}</h3>
+        <h3>Daily Budget: ${budget}</h3>
         <h3>Estimated Customer Interactions: {estimatedInteractions}</h3>
         <h3>Estimated Cost per Interaction: ${perInteractionCost.toFixed(2)}</h3>
         <h3>Estimated Total Cost: ${estimatedCost.toFixed(2)}</h3>
+      </div>
+
+      {/* Run Simulation Button */}
+      <div className="run-button-container">
+        <button className="run-simulation-button" onClick={runSimulation}>
+          Run Simulation
+        </button>
       </div>
 
       <div className="dashboard">
@@ -103,12 +110,7 @@ const Dashboard = ({
         </Card>
       </div>
 
-      {/* Run Simulation Button */}
-      <div className="run-button-container">
-        <button className="run-simulation-button" onClick={runSimulation}>
-          Run Simulation
-        </button>
-      </div>
+      
     </div>
   );
 };

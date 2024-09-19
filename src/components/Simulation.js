@@ -44,6 +44,13 @@ function Simulation({ feedback, setSimulationRun }) {
     <div className="simulation-container">
       <h1 className="feedback-title">Customer Feedback</h1>
 
+      {/* Back Button */}
+      <div className="back-button-container">
+        <button className="back-button" onClick={() => setSimulationRun(false)}>
+          Back to Dashboard
+        </button>
+      </div>
+
       {/* Pie Chart Centered */}
       <div className="pie-chart-container">
         <h2>Sentiment Distribution</h2>
@@ -81,12 +88,7 @@ function Simulation({ feedback, setSimulationRun }) {
         ))}
       </div>
 
-      {/* Back Button */}
-      <div className="back-button-container">
-        <button className="back-button" onClick={() => setSimulationRun(false)}>
-          Back to Dashboard
-        </button>
-      </div>
+      
     </div>
   );
 }
