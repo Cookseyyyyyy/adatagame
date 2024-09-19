@@ -24,7 +24,7 @@ function Simulation({ feedback, setSimulationRun }) {
     { Positive: 0, Neutral: 0, Negative: 0 }
   );
 
-  const totalFeedback = feedback.length;
+  //const totalFeedback = feedback.length;
 
   const data = {
     labels: ['Positive', 'Neutral', 'Negative'],

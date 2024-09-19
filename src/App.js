@@ -46,7 +46,7 @@ function App() {
   
     perInteractionCost += responseLength / 50;
   
-    const totalCost = perInteractionCost * estimatedInteractions;
+    //const totalCost = perInteractionCost * estimatedInteractions;
     const affordableInteractions = Math.min(
       estimatedInteractions,
       Math.floor(budget / perInteractionCost)
