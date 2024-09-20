@@ -1,3 +1,4 @@
+// Dashboard.js
 import React from 'react';
 import Card from './Card';
 import './Dashboard.css';
@@ -13,6 +14,27 @@ const Dashboard = ({
 
   const availableDataSources = ['Knowledge Base', 'FAQ', 'User Manuals'];
   const availableInstructions = ['Friendly Tone', 'Concise Answers', 'Detailed Explanations'];
+
+  // Handlers for Data Sources and Custom Instructions
+  const handleDataSourceToggle = (source) => {
+    if (dataSources.includes(source)) {
+      setDataSources(dataSources.filter(item => item !== source));
+    } else {
+      setDataSources([...dataSources, source]);
+    }
+  };
+
+  const handleInstructionToggle = (instruction) => {
+    if (customInstructions.includes(instruction)) {
+      setCustomInstructions(customInstructions.filter(item => item !== instruction));
+    } else {
+      setCustomInstructions([...customInstructions, instruction]);
+    }
+  };
+
+  const handleAIModeChange = (event) => {
+    setAiModel(event.target.value);
+  };
 
   // Calculate estimated cost per interaction
   let perInteractionCost = 0;
@@ -34,10 +56,18 @@ const Dashboard = ({
 
       {/* Budget, Estimated Interactions, and Estimated Cost */}
       <div className="dashboard-info">
-        <h3>Daily Budget: ${budget}</h3>
-        <h3>Estimated Customer Interactions: {estimatedInteractions}</h3>
-        <h3>Estimated Cost per Interaction: ${perInteractionCost.toFixed(2)}</h3>
-        <h3>Estimated Total Cost: ${estimatedCost.toFixed(2)}</h3>
+        <div className="info-item">
+          <h3>Daily Budget: ${budget}</h3>
+        </div>
+        <div className="info-item">
+          <h3>Estimated Customer Interactions: {estimatedInteractions}</h3>
+        </div>
+        <div className="info-item">
+          <h3>Estimated Cost per Interaction: ${perInteractionCost.toFixed(2)}</h3>
+        </div>
+        <div className="info-item">
+          <h3>Estimated Total Cost: ${estimatedCost.toFixed(2)}</h3>
+        </div>
       </div>
 
       {/* Run Simulation Button */}
@@ -50,51 +80,56 @@ const Dashboard = ({
       <div className="dashboard">
         {/* Data Sources Card */}
         <Card title="Data Sources">
-          {availableDataSources.map(source => (
-            <div key={source}>
-              <input
-                type="checkbox"
-                checked={dataSources.includes(source)}
-                onChange={() => {
-                  if (dataSources.includes(source)) {
-                    setDataSources(dataSources.filter(item => item !== source));
-                  } else {
-                    setDataSources([...dataSources, source]);
-                  }
-                }}
-              />
-              <label>{source}</label>
-            </div>
-          ))}
+          <div className="toggle-container">
+            {availableDataSources.map(source => (
+              <label key={source} className="switch">
+                <input
+                  type="checkbox"
+                  checked={dataSources.includes(source)}
+                  onChange={() => handleDataSourceToggle(source)}
+                />
+                <span className="slider"></span>
+                <span className="toggle-label" title={source}>{source}</span>
+              </label>
+            ))}
+          </div>
         </Card>
 
         {/* Custom Instructions Card */}
         <Card title="Custom Instructions">
-          {availableInstructions.map(instruction => (
-            <div key={instruction}>
-              <input
-                type="checkbox"
-                checked={customInstructions.includes(instruction)}
-                onChange={() => {
-                  if (customInstructions.includes(instruction)) {
-                    setCustomInstructions(customInstructions.filter(item => item !== instruction));
-                  } else {
-                    setCustomInstructions([...customInstructions, instruction]);
-                  }
-                }}
-              />
-              <label>{instruction}</label>
-            </div>
-          ))}
+          <div className="toggle-container">
+            {availableInstructions.map(instruction => (
+              <label key={instruction} className="switch">
+                <input
+                  type="checkbox"
+                  checked={customInstructions.includes(instruction)}
+                  onChange={() => handleInstructionToggle(instruction)}
+                />
+                <span className="slider"></span>
+                <span className="toggle-label" title={instruction}>{instruction}</span>
+              </label>
+            ))}
+          </div>
         </Card>
 
         {/* AI Model Card */}
         <Card title="AI Model">
-          <select value={aiModel} onChange={(e) => setAiModel(e.target.value)}>
-            <option value="basic">Basic Model</option>
-            <option value="advanced">Advanced Model</option>
-            <option value="premium">Premium Model</option>
-          </select>
+          <div className="radio-group">
+            {['basic', 'advanced', 'premium'].map(model => (
+              <label key={model} className={`radio-label ${model}`}>
+                <input
+                  type="radio"
+                  name="aiModel"
+                  value={model}
+                  checked={aiModel === model}
+                  onChange={handleAIModeChange}
+                />
+                <span className="radio-text">
+                  {model.charAt(0).toUpperCase() + model.slice(1)} Model
+                </span>
+              </label>
+            ))}
+          </div>
         </Card>
 
         {/* Response Length Card */}
@@ -109,8 +144,6 @@ const Dashboard = ({
           <span>{responseLength} words</span>
         </Card>
       </div>
-
-      
     </div>
   );
 };

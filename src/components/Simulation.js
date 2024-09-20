@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
 import './Simulation.css';
+import Card from './Card';
 
 function Simulation({ feedback, setSimulationRun }) {
   const [animationDelays, setAnimationDelays] = useState([]);
@@ -53,6 +54,7 @@ function Simulation({ feedback, setSimulationRun }) {
 
       {/* Pie Chart Centered */}
       <div className="pie-chart-container">
+        <Card title="Sentiment Distribution">
         <h2>Sentiment Distribution</h2>
         <Pie
           data={data}
@@ -70,6 +72,7 @@ function Simulation({ feedback, setSimulationRun }) {
             },
           }}
         />
+        </Card>
       </div>
 
       {/* Feedback Cards in Grid */}
