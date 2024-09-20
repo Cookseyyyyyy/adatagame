@@ -54,8 +54,8 @@ const Dashboard = ({
     <div className="dashboard-container">
       <h1 className="dashboard-title">Customer Chatbot Control Dashboard</h1>
 
-      {/* Budget, Estimated Interactions, and Estimated Cost */}
-      <div className="dashboard-info">
+      {/* Dashboard Info with Tooltip */}
+      <div className="dashboard-info" data-tooltip="The number of customer interactions changes daily based on the variables you set. The total cost is calculated by multiplying the estimated number of interactions by the cost per interaction.">
         <div className="info-item">
           <h3>Daily Budget: ${budget}</h3>
         </div>
@@ -78,8 +78,13 @@ const Dashboard = ({
       </div>
 
       <div className="dashboard">
-        {/* Data Sources Card */}
-        <Card title="Data Sources">
+        {/* Data Sources Card with Tooltip */}
+        <Card title={
+          <span className="tooltip-container">
+            Data Sources
+            <span className="tooltip-text">Select the data sources that the chatbot will use to fetch information.</span>
+          </span>
+        }>
           <div className="toggle-container">
             {availableDataSources.map(source => (
               <label key={source} className="switch">
@@ -95,8 +100,13 @@ const Dashboard = ({
           </div>
         </Card>
 
-        {/* Custom Instructions Card */}
-        <Card title="Custom Instructions">
+        {/* Custom Instructions Card with Tooltip */}
+        <Card title={
+          <span className="tooltip-container">
+            Custom Instructions
+            <span className="tooltip-text">Define how the chatbot should communicate with users, such as tone and verbosity.</span>
+          </span>
+        }>
           <div className="toggle-container">
             {availableInstructions.map(instruction => (
               <label key={instruction} className="switch">
@@ -112,8 +122,13 @@ const Dashboard = ({
           </div>
         </Card>
 
-        {/* AI Model Card */}
-        <Card title="AI Model">
+        {/* AI Model Card with Tooltip */}
+        <Card title={
+          <span className="tooltip-container">
+            AI Model
+            <span className="tooltip-text">Choose the AI model that determines the chatbot's capabilities and cost.</span>
+          </span>
+        }>
           <div className="radio-group">
             {['basic', 'advanced', 'premium'].map(model => (
               <label key={model} className={`radio-label ${model}`}>
@@ -132,8 +147,13 @@ const Dashboard = ({
           </div>
         </Card>
 
-        {/* Response Length Card */}
-        <Card title="Response Length">
+        {/* Response Length Card with Tooltip */}
+        <Card title={
+          <span className="tooltip-container">
+            Response Length
+            <span className="tooltip-text">Adjust the length of the chatbot's responses to balance detail and cost.</span>
+          </span>
+        }>
           <input
             type="range"
             min="10"

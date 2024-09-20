@@ -175,15 +175,22 @@ span {
 .radio-group {
   display: flex;
   flex-direction: column;
+  align-items: flex-start; /* Align labels to the start */
 }
 
 .radio-label {
-  display: flex;
+  display: inline-flex; /* Use inline-flex instead of flex */
   align-items: center;
   margin-bottom: 15px; /* Consistent spacing */
   cursor: pointer;
-  width: 100%;
-  position: relative;
+  padding: 8px 12px; /* Add padding for better click area */
+  border: 2px solid transparent; /* Default transparent border */
+  border-radius: 8px;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.radio-label:hover {
+  border-color: #ffffff; /* White border on hover */
 }
 
 .radio-label input {
@@ -215,9 +222,27 @@ span {
   accent-color: #ffc107; /* Gold */
 }
 
-/* Optional: Change text color on selection */
+/* Change border color based on AI model */
+.radio-label.basic {
+  border-color: #6c757d; /* Grey */
+}
+
+.radio-label.advanced {
+  border-color: #007bff; /* Blue */
+}
+
+.radio-label.premium {
+  border-color: #ffc107; /* Gold */
+}
+
+/* Change text color on selection */
 .radio-label input[type="radio"]:checked + .radio-text {
   color: #ffffff;
+}
+
+/* Optional: Enhance selected label background */
+.radio-label input[type="radio"]:checked {
+  /* Add any additional styles for selected state if desired */
 }
 
 /* Feedback Grid */
@@ -309,5 +334,93 @@ span {
 @media (max-width: 768px) {
   .feedback-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Tooltip Container */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Tooltip Text */
+.tooltip-text {
+  visibility: hidden;
+  width: 220px; /* Adjust as needed */
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 8px 12px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above the element */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip Arrow */
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+}
+
+/* Show the tooltip on hover */
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Dashboard Info Tooltip */
+.dashboard-info[data-tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+.dashboard-info[data-tooltip]::after {
+  content: "ℹ️";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+.dashboard-info[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  visibility: visible;
+  opacity: 1;
+  width: 220px; /* Adjust as needed */
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 8px 12px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above the element */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.dashboard-info[data-tooltip]:hover::before {
+  opacity: 1;
+}
+
+/* Adjust as needed for responsive tooltips */
+@media (max-width: 768px) {
+  .tooltip-text, .dashboard-info[data-tooltip]::before {
+    width: 180px;
   }
 }
