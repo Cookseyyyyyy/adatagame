@@ -30,6 +30,7 @@ body {
   
   /* Pie Chart */
   .pie-chart-container {
+    padding: 20px;
     text-align: center;
   }
   

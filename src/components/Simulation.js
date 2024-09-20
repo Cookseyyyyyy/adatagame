@@ -55,7 +55,6 @@ function Simulation({ feedback, setSimulationRun }) {
       {/* Pie Chart Centered */}
       <div className="pie-chart-container">
         <Card title="Sentiment Distribution">
-        <h2>Sentiment Distribution</h2>
         <Pie
           data={data}
           options={{

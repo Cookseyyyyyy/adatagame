@@ -1,4 +1,4 @@
-/* Dashboard.css */
+/* components/Dashboard.css */
 
 body {
   background-color: #2c2c2c;
@@ -20,24 +20,23 @@ body {
 /* Dashboard Info Section */
 .dashboard-info {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between; /* Distribute items evenly */
   align-items: center;
-  background-color: #007bff; /* Blue background like the button */
+  background-color: #007bff; /* Blue background */
   color: white;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
-  flex-wrap: wrap;
+  position: sticky; /* To position tooltip */
+  flex-wrap: nowrap; /* Prevent items from wrapping */
+  gap: 40px; /* Increased spacing between items */
+  width: 100%; /* Fit to width of screen */
 }
 
-.info-item {
-  margin: 10px 20px;
-  text-align: center;
-}
-
-.info-item h3 {
-  margin: 0;
-  font-size: 1.1rem;
+/* Info Icon (Optional Styling) */
+.info-icon {
+  font-size: 1.5rem;
+  margin-left: 10px;
 }
 
 /* Run Simulation Button */
@@ -58,7 +57,7 @@ body {
 }
 
 .run-simulation-button:hover {
-  background-color: #0056b3;
+  background-color: #ffc107;
   transform: scale(1.05);
 }
 
@@ -66,8 +65,9 @@ body {
 .dashboard {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 30px; /* Increased gap to prevent overlapping */
   padding: 20px;
+  grid-auto-rows: minmax(250px, auto); /* Ensures all rows have at least 250px */
 }
 
 /* Card Styles */
@@ -76,11 +76,13 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   padding: 20px;
+  transform: scale(1); /* Correct usage */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: visible; /* Ensure tooltips are not clipped */
 }
 
 .card:hover {
-  transform: translateY(-10px);
+  transform: scale(1.05); /* Combine scale within transform */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
 }
 
@@ -143,11 +145,11 @@ span {
 }
 
 .switch input:checked + .slider {
-  background-color: #28a745;
+  background-color: #007bff; /* Changed from #28a745 to match new button color */
 }
 
 .switch input:focus + .slider {
-  box-shadow: 0 0 1px #28a745;
+  box-shadow: 0 0 1px #007bff; /* Updated to match new button color */
 }
 
 .switch input:checked + .slider::before {
@@ -196,8 +198,8 @@ span {
 .radio-label input {
   /* Make radio buttons visible */
   margin-right: 10px;
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
 }
 
@@ -240,73 +242,6 @@ span {
   color: #ffffff;
 }
 
-/* Optional: Enhance selected label background */
-.radio-label input[type="radio"]:checked {
-  /* Add any additional styles for selected state if desired */
-}
-
-/* Feedback Grid */
-.feedback-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding: 20px;
-}
-
-/* Feedback Card Styles */
-.feedback-card {
-  background-color: #383838;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  padding: 20px;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.5s ease forwards; /* Animation applied */
-}
-
-.feedback-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-}
-
-.feedback-sentiment {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-  color: #ffffff;
-}
-
-/* Feedback Message */
-.feedback-message {
-  font-size: 1rem;
-  color: #b0b0b0;
-}
-
-/* Sentiment Color Coding */
-.feedback-card.positive {
-  border-left: 15px solid #28a745;
-}
-
-.feedback-card.neutral {
-  border-left: 15px solid #ffc107;
-}
-
-.feedback-card.negative {
-  border-left: 15px solid #dc3545;
-}
-
-/* Animation for feedback cards */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* Responsive Design */
 @media (max-width: 1024px) {
   .dashboard {
@@ -315,7 +250,8 @@ span {
 
   .dashboard-info {
     flex-direction: column;
-    text-align: center;
+    align-items: flex-start;
+    gap: 10px; /* Reduce gap for smaller screens */
   }
 
   .toggle-container, .radio-group {
@@ -334,93 +270,5 @@ span {
 @media (max-width: 768px) {
   .feedback-grid {
     grid-template-columns: 1fr;
-  }
-}
-
-/* Tooltip Container */
-.tooltip-container {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-
-/* Tooltip Text */
-.tooltip-text {
-  visibility: hidden;
-  width: 220px; /* Adjust as needed */
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  text-align: left;
-  border-radius: 6px;
-  padding: 8px 12px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%; /* Position above the element */
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-/* Tooltip Arrow */
-.tooltip-text::after {
-  content: "";
-  position: absolute;
-  top: 100%; /* At the bottom of the tooltip */
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 5px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
-}
-
-/* Show the tooltip on hover */
-.tooltip-container:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* Dashboard Info Tooltip */
-.dashboard-info[data-tooltip] {
-  position: relative;
-  cursor: pointer;
-}
-
-.dashboard-info[data-tooltip]::after {
-  content: "ℹ️";
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 1.2rem;
-  color: #ffffff;
-}
-
-.dashboard-info[data-tooltip]:hover::before {
-  content: attr(data-tooltip);
-  visibility: visible;
-  opacity: 1;
-  width: 220px; /* Adjust as needed */
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  text-align: left;
-  border-radius: 6px;
-  padding: 8px 12px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%; /* Position above the element */
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.dashboard-info[data-tooltip]:hover::before {
-  opacity: 1;
-}
-
-/* Adjust as needed for responsive tooltips */
-@media (max-width: 768px) {
-  .tooltip-text, .dashboard-info[data-tooltip]::before {
-    width: 180px;
   }
 }

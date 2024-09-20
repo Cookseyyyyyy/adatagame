@@ -1,6 +1,7 @@
-// Dashboard.js
+// components/Dashboard.js
 import React from 'react';
 import Card from './Card';
+import Tooltip from './Tooltip'; // Import the Tooltip component
 import './Dashboard.css';
 
 const Dashboard = ({
@@ -55,114 +56,106 @@ const Dashboard = ({
       <h1 className="dashboard-title">Customer Chatbot Control Dashboard</h1>
 
       {/* Dashboard Info with Tooltip */}
-      <div className="dashboard-info" data-tooltip="The number of customer interactions changes daily based on the variables you set. The total cost is calculated by multiplying the estimated number of interactions by the cost per interaction.">
-        <div className="info-item">
-          <h3>Daily Budget: ${budget}</h3>
+      <Tooltip text="The number of customer interactions changes daily. The cost of an individual interaction is affected by the choices you make. The total cost is calculated by multiplying the estimated number of interactions by the cost per interaction.">
+        <div className="dashboard-info">
+          <div className="info-item">
+            <h3>Daily Budget: ${budget}</h3>
+          </div>
+          <div className="info-item">
+            <h3>Estimated Customer Interactions: {estimatedInteractions}</h3>
+          </div>
+          <div className="info-item">
+            <h3>Estimated Cost per Interaction: ${perInteractionCost.toFixed(2)}</h3>
+          </div>
+          <div className="info-item">
+            <h3>Estimated Total Cost: ${estimatedCost.toFixed(2)}</h3>
+          </div> 
         </div>
-        <div className="info-item">
-          <h3>Estimated Customer Interactions: {estimatedInteractions}</h3>
-        </div>
-        <div className="info-item">
-          <h3>Estimated Cost per Interaction: ${perInteractionCost.toFixed(2)}</h3>
-        </div>
-        <div className="info-item">
-          <h3>Estimated Total Cost: ${estimatedCost.toFixed(2)}</h3>
-        </div>
-      </div>
+      </Tooltip>
 
       {/* Run Simulation Button */}
       <div className="run-button-container">
-        <button className="run-simulation-button" onClick={runSimulation}>
-          Run Simulation
-        </button>
+        <Tooltip text="Click to simulate customer interactions based on your current settings.">
+          <button className="run-simulation-button" onClick={runSimulation}>
+            Start Day
+          </button>
+        </Tooltip>
       </div>
 
       <div className="dashboard">
         {/* Data Sources Card with Tooltip */}
-        <Card title={
-          <span className="tooltip-container">
-            Data Sources
-            <span className="tooltip-text">Select the data sources that the chatbot will use to fetch information.</span>
-          </span>
-        }>
-          <div className="toggle-container">
-            {availableDataSources.map(source => (
-              <label key={source} className="switch">
-                <input
-                  type="checkbox"
-                  checked={dataSources.includes(source)}
-                  onChange={() => handleDataSourceToggle(source)}
-                />
-                <span className="slider"></span>
-                <span className="toggle-label" title={source}>{source}</span>
-              </label>
-            ))}
-          </div>
-        </Card>
+        <Tooltip text="Select the data sources that the chatbot will use to fetch information.">
+          <Card title={<span>Data Sources</span>}>
+            <div className="toggle-container">
+              {availableDataSources.map(source => (
+                <label key={source} className="switch">
+                  <input
+                    type="checkbox"
+                    checked={dataSources.includes(source)}
+                    onChange={() => handleDataSourceToggle(source)}
+                  />
+                  <span className="slider"></span>
+                  <span className="toggle-label">{source}</span>
+                </label>
+              ))}
+            </div>
+          </Card>
+        </Tooltip>
 
         {/* Custom Instructions Card with Tooltip */}
-        <Card title={
-          <span className="tooltip-container">
-            Custom Instructions
-            <span className="tooltip-text">Define how the chatbot should communicate with users, such as tone and verbosity.</span>
-          </span>
-        }>
-          <div className="toggle-container">
-            {availableInstructions.map(instruction => (
-              <label key={instruction} className="switch">
-                <input
-                  type="checkbox"
-                  checked={customInstructions.includes(instruction)}
-                  onChange={() => handleInstructionToggle(instruction)}
-                />
-                <span className="slider"></span>
-                <span className="toggle-label" title={instruction}>{instruction}</span>
-              </label>
-            ))}
-          </div>
-        </Card>
+        <Tooltip text="Define how the chatbot should communicate with users, such as tone and verbosity.">
+          <Card title={<span>Custom Instructions</span>}>
+            <div className="toggle-container">
+              {availableInstructions.map(instruction => (
+                <label key={instruction} className="switch">
+                  <input
+                    type="checkbox"
+                    checked={customInstructions.includes(instruction)}
+                    onChange={() => handleInstructionToggle(instruction)}
+                  />
+                  <span className="slider"></span>
+                  <span className="toggle-label">{instruction}</span>
+                </label>
+              ))}
+            </div>
+          </Card>
+        </Tooltip>
 
         {/* AI Model Card with Tooltip */}
-        <Card title={
-          <span className="tooltip-container">
-            AI Model
-            <span className="tooltip-text">Choose the AI model that determines the chatbot's capabilities and cost.</span>
-          </span>
-        }>
-          <div className="radio-group">
-            {['basic', 'advanced', 'premium'].map(model => (
-              <label key={model} className={`radio-label ${model}`}>
-                <input
-                  type="radio"
-                  name="aiModel"
-                  value={model}
-                  checked={aiModel === model}
-                  onChange={handleAIModeChange}
-                />
-                <span className="radio-text">
-                  {model.charAt(0).toUpperCase() + model.slice(1)} Model
-                </span>
-              </label>
-            ))}
-          </div>
-        </Card>
+        <Tooltip text="Choose the AI model that determines the chatbot's capabilities and cost.">
+          <Card title={<span>AI Model</span>}>
+            <div className="radio-group">
+              {['basic', 'advanced', 'premium'].map(model => (
+                <label key={model} className={`radio-label ${model}`}>
+                  <input
+                    type="radio"
+                    name="aiModel"
+                    value={model}
+                    checked={aiModel === model}
+                    onChange={handleAIModeChange}
+                  />
+                  <span className="radio-text">
+                    {model.charAt(0).toUpperCase() + model.slice(1)} Model
+                  </span>
+                </label>
+              ))}
+            </div>
+          </Card>
+        </Tooltip>
 
         {/* Response Length Card with Tooltip */}
-        <Card title={
-          <span className="tooltip-container">
-            Response Length
-            <span className="tooltip-text">Adjust the length of the chatbot's responses to balance detail and cost.</span>
-          </span>
-        }>
-          <input
-            type="range"
-            min="10"
-            max="200"
-            value={responseLength}
-            onChange={(e) => setResponseLength(e.target.value)}
-          />
-          <span>{responseLength} words</span>
-        </Card>
+        <Tooltip text="Adjust the length of the chatbot's responses to balance detail and cost.">
+          <Card title={<span>Response Length</span>}>
+            <input
+              type="range"
+              min="10"
+              max="200"
+              value={responseLength}
+              onChange={(e) => setResponseLength(e.target.value)}
+            />
+            <span>{responseLength} words</span>
+          </Card>
+        </Tooltip>
       </div>
     </div>
   );
