@@ -11,7 +11,7 @@ function App() {
   const [aiModel, setAiModel] = useState('basic');
   const [responseLength, setResponseLength] = useState(50);
 
-  const [budget] = useState(1000); // Fixed budget
+  const [budget] = useState(750); // Fixed budget
   const [estimatedInteractions, setEstimatedInteractions] = useState(0);
 
   const [simulationRun, setSimulationRun] = useState(false);

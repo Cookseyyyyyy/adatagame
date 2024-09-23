@@ -26,6 +26,16 @@ function Overlay({ image, title, bodyText, onClose }) {
     };
   }, [onClose]);
 
+  // Split the bodyText by double newline characters to create paragraphs
+  const renderBodyText = () => {
+    if (!bodyText) return null;
+    return bodyText.split('\n\n').map((paragraph, index) => (
+      <p key={index} className="overlay-paragraph">
+        {paragraph}
+      </p>
+    ));
+  };
+
   return (
     <div
       className="overlay-backdrop"
@@ -52,9 +62,9 @@ function Overlay({ image, title, bodyText, onClose }) {
           </h2>
         )}
         {bodyText && (
-          <p id="overlay-body" className="overlay-body">
-            {bodyText}
-          </p>
+          <div id="overlay-body" className="overlay-body">
+            {renderBodyText()}
+          </div>
         )}
         <button className="overlay-button" onClick={onClose}>
           Close
