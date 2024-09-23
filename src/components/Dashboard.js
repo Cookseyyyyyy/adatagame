@@ -97,7 +97,7 @@ const Dashboard = ({
     image: 'images/mtcooksey_a_3d_pixar_style_avatar_older_female_professional_9fb7709e-4b83-4260-8eda-685c2747d86d.png', // Ensure this path is correct
     title: 'Hi and welcome to your first day in charge of our customer chatbot.',
     bodyText:
-      'Each day you will be given a budget and an estimated number of customer interactions. You will need to decide how to allocate your budget across data sources, custom instructions, and the AI model to optimize the chatbot\'s performance and customer satisfaction. \n\nAs the day progresses, you will be able to see the impact of your decisions on the chatbot\'s interactions and the overall cost. \n\Good luck!',
+      'Each day you will be given a budget and an estimated number of customer interactions. You will need to decide how to allocate your budget across data sources, custom instructions, and the AI model to optimize the chatbot\'s performance and customer satisfaction. \n\nAs the day progresses, you will be able to see the impact of your decisions on the chatbot\'s interactions and the overall cost. \n\nGood luck!',
   };
 
   return (
