@@ -1,0 +1,98 @@
+/* src/components/Overlay.css */
+
+.overlay-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(44, 44, 44, 0.8); /* Semi-transparent dark background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure it's on top of other elements */
+  }
+  
+  .overlay-content {
+    background-color: #383838; /* Match existing card background */
+    color: #e0e0e0;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    position: relative;
+    animation: fadeIn 0.3s ease-out;
+    outline: none; /* Remove default focus outline */
+  }
+  
+  .overlay-image-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .overlay-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .overlay-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .overlay-body {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+  
+  .overlay-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .overlay-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  /* Animation for the overlay */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .overlay-content {
+      padding: 20px;
+    }
+  
+    .overlay-title {
+      font-size: 1.5rem;
+    }
+  
+    .overlay-body {
+      font-size: 0.9rem;
+    }
+  
+    .overlay-button {
+      width: 100%;
+      padding: 10px 0;
+    }
+  }

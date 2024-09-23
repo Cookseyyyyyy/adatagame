@@ -272,3 +272,14 @@ span {
     grid-template-columns: 1fr;
   }
 }
+
+/* Current Day Display */
+.current-day {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.current-day h2 {
+  font-size: 1.5rem;
+  color: #ffffff;
+}

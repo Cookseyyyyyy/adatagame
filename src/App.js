@@ -19,6 +19,9 @@ function App() {
   
   const [feedbackData, setFeedbackData] = useState([]);
 
+  // **New State for Day Counter**
+  const [day, setDay] = useState(0);
+
   useEffect(() => {
     // Load feedback data on component mount
     loadFeedback()
@@ -46,7 +49,7 @@ function App() {
   
     perInteractionCost += responseLength / 50;
   
-    //const totalCost = perInteractionCost * estimatedInteractions;
+    // Calculate affordable interactions based on budget
     const affordableInteractions = Math.min(
       estimatedInteractions,
       Math.floor(budget / perInteractionCost)
@@ -113,6 +116,9 @@ function App() {
   
     setFeedback(feedbackList);
     setSimulationRun(true);
+
+    // **Increment Day Count When Simulation Ends**
+    setDay(prevDay => prevDay + 1);
   };
 
   return (
@@ -130,6 +136,8 @@ function App() {
           budget={budget}
           estimatedInteractions={estimatedInteractions}
           runSimulation={runSimulation}
+          day={day}           /* **Pass Day as Prop** */
+          setDay={setDay}     /* **Pass setDay as Prop** */
         />
       ) : (
         <Simulation 
